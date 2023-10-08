@@ -104,13 +104,12 @@ def graph_search(problem, fringe):
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
-            count_visited_nodes += 1
+            count_visited_nodes += len(node.path())
             print("Number of generated nodes: ", count_generated_nodes)
-            print("Number of visited nodes: ", len(node.path()))
+            print("Number of visited nodes: ", count_visited_nodes)
             return node
         if node.state not in closed:
             closed[node.state] = True
-            count_visited_nodes += 1
             count_generated_nodes += len(node.expand(problem))
             print("The node " + str(node) + " expands " + str(len(node.expand(problem))) +
                   " nodes: " + str(node.expand(problem)))
