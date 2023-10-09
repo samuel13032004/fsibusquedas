@@ -100,17 +100,22 @@ def graph_search(problem, fringe):
     count_visited_nodes = 0
     count_generated_nodes = 0
     closed = {}
+    generated_nodes = []
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
         if problem.goal_test(node.state):
             count_visited_nodes += len(node.path())
-            print("Number of generated nodes: ", count_generated_nodes)
+            print("Number of generated nodes with repetition: ", count_generated_nodes)
+            print("Number of generated nodes without repetition: ", len(generated_nodes))
             print("Number of visited nodes: ", count_visited_nodes)
             return node
         if node.state not in closed:
             closed[node.state] = True
             count_generated_nodes += len(node.expand(problem))
+            for i in range(len(node.expand(problem))):
+                if str(node.expand(problem)[i]) not in generated_nodes:
+                    generated_nodes.append(str(node.expand(problem)[i]))
             print("The node " + str(node) + " expands " + str(len(node.expand(problem))) +
                   " nodes: " + str(node.expand(problem)))
             fringe.extend(node.expand(problem))
