@@ -98,21 +98,21 @@ def graph_search(problem, fringe):
     The argument fringe should be an empty queue.
     If two paths reach a state, only use the best one. [Fig. 3.18]"""
     count_visited_nodes = 0
-    count_generated_nodes = 0
     closed = {}
     generated_nodes = []
+    visited_nodes = []
     fringe.append(Node(problem.initial))
     while fringe:
         node = fringe.pop()
+        if str(node) not in visited_nodes:
+            count_visited_nodes += 1
+            visited_nodes.append(str(node))
         if problem.goal_test(node.state):
-            count_visited_nodes += len(node.path())
-            print("Number of generated nodes with repetition: ", count_generated_nodes)
             print("Number of generated nodes without repetition: ", len(generated_nodes))
             print("Number of visited nodes: ", count_visited_nodes)
             return node
         if node.state not in closed:
             closed[node.state] = True
-            count_generated_nodes += len(node.expand(problem))
             for i in range(len(node.expand(problem))):
                 if str(node.expand(problem)[i]) not in generated_nodes:
                     generated_nodes.append(str(node.expand(problem)[i]))
