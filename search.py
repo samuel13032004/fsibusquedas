@@ -108,7 +108,7 @@ def graph_search(problem, fringe):
             count_visited_nodes += 1
             visited_nodes.append(str(node))
         if problem.goal_test(node.state):
-            print("Number of generated nodes without repetition: ", len(generated_nodes))
+            print("Number of generated nodes: ", len(generated_nodes))
             print("Number of visited nodes: ", count_visited_nodes)
             return node
         if node.state not in closed:
